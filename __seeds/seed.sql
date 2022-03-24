@@ -62,14 +62,6 @@ DECLARE @delivery_loja_id UNIQUEIDENTIFIER;
 DECLARE @delivery_loja_status TABLE (id UNIQUEIDENTIFIER, code VARCHAR(64));
 DECLARE @delivery_loja_status_id UNIQUEIDENTIFIER;
 
-INSERT INTO delivery_loja_status (
-	code, descricao
-) OUTPUT INSERTED.id, INSERTED.code INTO @delivery_loja_status
-VALUES
-	('OPEN', 'Aberta para receber pedidos'),
-	('CLOSED', 'Fora do horário de atendimento'),
-	('PAUSED', 'Pausada por algum motivo');
-
 SELECT @delivery_loja_status_id = id FROM @delivery_loja_status WHERE code = 'OPEN'
 
 DECLARE @logradouro VARCHAR(MAX);
@@ -127,15 +119,3 @@ INSERT INTO delivery_loja_area_entrega (
 VALUES
 	(1, 5.00, 10, '-22.1231866', '-51.3939638', @delivery_loja_id),
 	(5, 7.00, 30, '-22.1231866', '-51.3939638', @delivery_loja_id);
-
-INSERT INTO delivery_status (
-	code, descricao
-)
-VALUES 
-	('PLACED', 'Novo pedido no sistema'),
-	('INTEGRATED', 'Pedido integrado no PDV'),
-	('CONFIRMED', 'Pedido confirmado e será preparado'),
-	('READY_TO_PICKUP', 'Pedido pronto para ser retirado'),
-	('DISPATCHED', 'Pedido saiu para a entrega'),
-	('CONCLUDED', 'Pedido foi concluído'),
-	('CANCELLED', 'Pedido foi cancelado')
