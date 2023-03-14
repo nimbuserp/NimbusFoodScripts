@@ -1,0 +1,1 @@
+ALTER TABLE [admERP].[dbo].[delivery_autenticacao] ADD ativo BIT NOT NULL DEFAULT 1;
